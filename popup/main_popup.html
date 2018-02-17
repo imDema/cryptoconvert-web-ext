@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="main_popup.css"/>
+  </head>
+
+<body>
+  <div id="popup-content">
+    <div id="title "class="title">CryptoConvert</div>
+    <div id="control-container">
+        <div id="starting-currency" class="input">
+            <input class="form-control" name="amount" placeholder="20" type="number">
+            <a onclick="Dropdown()" class="dropdown-open">BTC</a>
+        </div>
+        <div id="target-currency" class="input">
+            <input class="form-control" name="amount" placeholder="20" type="number">
+            <a onclick="Dropdown()" class="dropdown-open">BTC</a>
+          </div>
+    </div>
+  </div>
+  <div id="error-content" class="hidden">
+    <p>Test error message</p>
+  </div>
+  <script src="main_popup.js"></script>
+</body>
+
+</html>

@@ -8,12 +8,12 @@
   
     "icons":
     {
-      "48": "icons/crypcon-48.png"
+      "48": "icons/icon_48.png"
     },
 
     "browser_action":
     {
-        "default_icon": "icons/crypcon-32.png",
+        "default_icon": "icons/icon_32.png",
         "default_title": "CryptoConvert",
         "default_popup": "popup/main_popup.html"
     },
