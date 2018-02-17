@@ -6,11 +6,20 @@
   
     "description": "Calculate crypto conversions instantly.",
   
-    "icons": {
-      "48": "icons/border-48.png"
+    "icons":
+    {
+      "48": "icons/crypcon-48.png"
+    },
+
+    "browser_action":
+    {
+        "default_icon": "icons/crypcon-32.png",
+        "default_title": "CryptoConvert",
+        "default_popup": "popup/main_popup.html"
     },
   
-    "content_scripts": [
+    "content_scripts":
+    [
     ]
   
   }
