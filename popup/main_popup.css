@@ -1,21 +1,38 @@
 html, body
 {
-    width: 240px;
+    width: 200px;
+    padding: 4px;
     background-color: crimson;
+    font-family: 'Fira Sans', sans-serif;
+}
+
+.title
+{
+  color:white;
+}
+
+.quantity input, .dropdown-open
+{
+  float: left;
+  overflow: hidden;
+  margin: 2px;
 }
 
 .dropdown-open
 {
-  color: rgb(247, 95, 36);
+  color: rgb(255, 184, 155);
 }
 
-.button
-{
-  margin: 3% auto;
-  padding: 4px;
-  text-align: center;
-  font-size: 1.5em;
-  cursor: pointer;
+.quantity input {
+  text-align: right;
+  height: 1.2em;
+  width: 9em;
+  line-height: 1.65;
+  border: 1px solid #eee;
+}
+
+.quantity input:focus {
+  outline: 0;
 }
 
 .hidden
