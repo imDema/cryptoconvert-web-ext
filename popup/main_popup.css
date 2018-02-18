@@ -20,19 +20,47 @@ html, body
 
 .dropdown-open
 {
-  color: rgb(255, 184, 155);
+  text-align: center;
+  border: none;
+  height: 2.15em;
+  width: 5em;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: #ff7f50;
+  color: rgb(255, 235, 227);
+}
+
+.dropdown-open:hover
+{
+  color: white;
+  background-color: hsl(16, 95%, 70%);
 }
 
 .quantity input {
   text-align: right;
-  height: 1.2em;
+  height: 2em;
   width: 9em;
-  line-height: 1.65;
-  border: 1px solid #eee;
+  border: none;
 }
 
 .quantity input:focus {
   outline: 0;
+}
+
+.dropdown-content-1
+{
+  
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.currency
+{
+  position: relative;
+  display: inline-block;
 }
 
 .hidden
