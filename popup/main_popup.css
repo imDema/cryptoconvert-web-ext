@@ -11,29 +11,23 @@ html, body
   color:white;
 }
 
-.quantity input, .dropdown-open
+.quantity input, .dropdown
 {
   float: left;
   overflow: hidden;
   margin: 2px;
 }
 
-.dropdown-open
+.dropdown
 {
   text-align: center;
   border: none;
   height: 2.15em;
-  width: 5em;
+  width: 4.8em;
   cursor: pointer;
   text-decoration: none;
   background-color: #ff7f50;
   color: rgb(255, 235, 227);
-}
-
-.dropdown-open:hover
-{
-  color: white;
-  background-color: hsl(16, 95%, 70%);
 }
 
 .quantity input {
@@ -45,16 +39,6 @@ html, body
 
 .quantity input:focus {
   outline: 0;
-}
-
-.dropdown-content-1
-{
-  
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
 }
 
 .currency

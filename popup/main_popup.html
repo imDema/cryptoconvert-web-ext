@@ -14,22 +14,16 @@
     <div id="control-container">
         <div id="currency first-c" class="input">
             <div class="quantity"><input class="form-control" name="amount-first" min="0" step="0.0001" placeholder="100.0000" type="number"></div>
-            <div class="dropdown">
-              <button onclick="Dropdown()" class="dropdown-open">BTC</button>
-              <div class="dropdown-content-1">
-                <a>Test</a>
-              </div>
-          </div>
+              <select class="dropdown" id="first-dropdown">
+                <option value="btc">BTC</option>
+              </select>
         </div>
         <div id="currency second-c" class="input">
-            <div class="quantity"><input class="form-control" name="amount-second" min="0" step="0.0001" placeholder="0.0000" type="number"></div>
-            <div class="dropdown">
-            <button onclick="Dropdown()" class="dropdown-open">USD</button>
-            <div class="dropdown-content">
-
-            </div>
-            </div>
-          </div>
+          <div class="quantity"><input class="form-control" name="amount-first" min="0" step="0.0001" placeholder="100.0000" type="number"></div>
+          <select class="dropdown" id="second-dropdown">
+            <option value="btc">BTC</option>
+          </select>
+        </div>
     </div>
   </div>
   <div id="error-content" class="hidden">
