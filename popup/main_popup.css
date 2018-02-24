@@ -11,7 +11,7 @@ html, body
   color:white;
 }
 
-.quantity input, .dropdown
+input.form-control, .dropdown
 {
   float: left;
   overflow: hidden;
@@ -30,14 +30,24 @@ html, body
   color: rgb(255, 235, 227);
 }
 
-.quantity input {
+optgroup
+{
+  border: none;
+  height: 2.15em;
+  width: 4.8em;
+  text-decoration: none;
+  background-color: hsl(16, 85%, 58%);
+  color: rgb(255, 235, 227);
+}
+
+input.form-control {
   text-align: right;
   height: 2em;
   width: 9em;
   border: none;
 }
 
-.quantity input:focus {
+input.form-control:focus {
   outline: 0;
 }
 
