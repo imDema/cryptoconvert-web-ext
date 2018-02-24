@@ -1,8 +1,8 @@
-function addOption(select, option)
+function addOption(select, id, symbol)
 {
     var opt = document.createElement('option');
-    opt.value = option;
-    opt.innerHTML = option;
+    opt.value = id;
+    opt.innerHTML = symbol;
     select.appendChild(opt);
 }
 
@@ -19,15 +19,17 @@ xhr.setRequestHeader("Content-type", "application/json");
 xhr.send();
 var response = JSON.parse(xhr.responseText);
 
+var first_recent = document.getElementById("first_recent");
+var first_alphabetical = document.getElementById("first_alphabetical");
+var second_recent = document.getElementById("second_recent");
+var second_alphabetical = document.getElementById("second_alphabetical");
+
+
 response.forEach(element => {
     addToDict(dict, element.id, element.symbol);
 });
 
-
-var dd1 = document.getElementById("first-dropdown");
-var dd2 = document.getElementById("second-dropdown");
-
-dict.forEach(element => {
-    addOption(dd1, element.symbol);
-    addOption(dd2, element.symbol);
+response.forEach(element => {
+    addOption(first_alphabetical, element.id, element.symbol);
+    addOption(second_alphabetical, element.id, element.symbol);
 });

@@ -20,7 +20,8 @@
   
     "permissions" : 
     [
-      "https://api.coinmarketcap.com/v1/ticker/"
+      "https://api.coinmarketcap.com/",
+      "https://fonts.googleapis.com/"
     ]
   
   }
