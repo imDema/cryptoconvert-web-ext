@@ -18,8 +18,9 @@
         "default_popup": "popup/main_popup.html"
     },
   
-    "content_scripts":
+    "permissions" : 
     [
+      "https://api.coinmarketcap.com/v1/ticker/"
     ]
   
   }

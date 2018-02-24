@@ -6,10 +6,9 @@ function addOption(select, option)
     select.appendChild(opt);
 }
 
-
 function addToDict(dict, key, value)
 {
-    dict.push({key: key, value: value});
+    dict.push({id: key, symbol: value});
 }
 
 var dict = [];
