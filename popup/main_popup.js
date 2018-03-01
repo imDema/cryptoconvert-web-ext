@@ -14,19 +14,23 @@ function updateControls(event)
 {
     switch (event.target.classList.value) {
         case "form-control first":
-            alert("1");
+            //Changed first value
+            updateSecondField();
         break;
     
         case "form-control second":
-            alert("2");
+            //Changed second value
+            updateFirstField();
         break;
 
         case "dropdown first":
-            alert("3");
+            //Changed first currency
+            updateSecondField();
         break;
 
         case "dropdown second":
-            alert("4");
+            //Changed second currency
+            updateSecondField();
         break;
 
         default:
@@ -34,11 +38,67 @@ function updateControls(event)
     }
 }
 
+function updateSecondField()
+{
+    var conv = calcConversion();
+    second_input.value = (first_input.value * conv).toFixed(NDEC);
+}
+
+function updateFirstField()
+{
+    var conv = calcConversion();
+    first_input.value = (second_input.value * (1.0/conv)).toFixed(NDEC);
+}
+
+function Contained(array, item)
+{
+    for(var i = 0; i<array.length; i++)
+    {
+        if(item == array[i])
+            return true;
+    }
+    return false;
+}
+
+function requestConv(crypto, fiatc)
+{
+    var req = new XMLHttpRequest();
+    req.open("GET", `https://api.coinmarketcap.com/v1/ticker/${crypto}/?convert=${fiatc}`, false);
+    req.setRequestHeader("Content-type", "application/json");
+    req.send();
+    var res = JSON.parse(req.responseText);
+    return res[0][`price_${fiatc.toLowerCase()}`];
+}
+
 function calcConversion()
 {
     var from = first_dropdown.value;
     var to = second_dropdown.value;
-    
+    var fc, sc;
+    if(Contained(fiat, from) && Contained(fiat, to))
+    {
+        fc = requestConv("bitcoin", from);
+        sc = requestConv("bitcoin", to);
+        return sc / fc;
+    }
+    else if(Contained(fiat, from))
+    {
+        return requestConv(to, from);
+    }
+    else if(Contained(fiat, to))
+    {
+        return requestConv(from, to);
+    }
+    for (var i=0; i < response.length; i++)
+    {
+        var element = response[i];
+        if (element.id === from)
+            fc = element.price_usd;
+            
+        if (element.id === to)
+            sc = element.price_usd;
+    }
+    return sc/fc;
 }
 
 function searchJson(json, property, value)
@@ -51,6 +111,7 @@ function searchJson(json, property, value)
     return null;
 }
 
+const NDEC = 10;
 const fiat = ["EUR", "USD", "GBP", "KRW"];
 var conversion = 1.0;
 
@@ -88,15 +149,18 @@ var second_fiat = document.getElementById("second_fiat");
 var first_input = document.getElementById("first_input");
 var second_input = document.getElementById("second_input");
 
+//Populate Fiat
+fiat.forEach(element => 
+    {
+        addOption(first_fiat, element, element);
+        addOption(second_fiat, element, element);
+    });
+
 //Populate Top250
 response.forEach(element => {
     addOption(first_top, element.id, element.symbol);
     addOption(second_top, element.id, element.symbol);
 });
 
-//Populate Fiat
-fiat.forEach(element => 
-{
-    addOption(first_fiat, element, element);
-    addOption(second_fiat, element, element);
-});
+first_dropdown.value = first_top.firstChild.value;
+second_dropdown.value = second_fiat.firstChild.value;

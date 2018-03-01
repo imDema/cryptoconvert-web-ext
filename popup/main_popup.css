@@ -1,7 +1,7 @@
 html, body
 {
-    width: 200px;
-    padding: 4px;
+    width: 16em;
+    padding: 0.225em;
     background-color: crimson;
     font-family: 'Fira Sans', sans-serif;
 }
@@ -13,12 +13,12 @@ html, body
 
 input.form-control, .dropdown
 {
-  float: left;
+  display: inline-block;
   overflow: hidden;
   margin: 2px;
 }
 
-.dropdown
+select.dropdown
 {
   text-align: center;
   border: none;
@@ -32,11 +32,24 @@ input.form-control, .dropdown
 
 optgroup
 {
+  display: block;
+  text-align: left;
   border: none;
-  height: 2.15em;
   width: 4.8em;
   text-decoration: none;
   background-color: hsl(16, 85%, 58%);
+  color: rgb(255, 235, 227);
+}
+
+option
+{
+  display: block;
+  text-align: center;
+  padding: 0.275em;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: #ff7f50;
   color: rgb(255, 235, 227);
 }
 
@@ -49,12 +62,6 @@ input.form-control {
 
 input.form-control:focus {
   outline: 0;
-}
-
-.currency
-{
-  position: relative;
-  display: inline-block;
 }
 
 .hidden
