@@ -1,14 +1,25 @@
 html, body
 {
-    width: 16em;
     padding: 0.225em;
     background-color: crimson;
     font-family: 'Fira Sans', sans-serif;
 }
 
+.popup-container
+{
+  display: block;
+  align-content: center;
+}
+
 .title
 {
   color:white;
+  margin-bottom: 0.2em;
+}
+
+.currency
+{
+  display: flex;
 }
 
 input.form-control, .dropdown

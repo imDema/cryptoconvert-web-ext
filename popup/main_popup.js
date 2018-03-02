@@ -83,7 +83,7 @@ function calcConversion()
     }
     else if(Contained(fiat, from))
     {
-        return requestConv(to, from);
+        return (1.0/requestConv(to, from));
     }
     else if(Contained(fiat, to))
     {
