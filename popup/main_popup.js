@@ -1,13 +1,9 @@
 function addOption(select, id, symbol)
 {
-    var opt = document.createElement('option');
+    let opt = document.createElement('option');
     opt.value = id;
     opt.innerHTML = symbol;
     select.appendChild(opt);
-}
-function addToDict(dict, key, value)
-{
-    dict.push({id: key, symbol: value});
 }
 
 function updateControls(event)
@@ -40,19 +36,19 @@ function updateControls(event)
 
 function updateSecondField()
 {
-    var conv = calcConversion();
+    let conv = calcConversion();
     second_input.value = (first_input.value * conv).toFixed(NDEC);
 }
 
 function updateFirstField()
 {
-    var conv = calcConversion();
+    let conv = calcConversion();
     first_input.value = (second_input.value * (1.0/conv)).toFixed(NDEC);
 }
 
 function Contained(array, item)
 {
-    for(var i = 0; i<array.length; i++)
+    for(let i = 0; i<array.length; i++)
     {
         if(item == array[i])
             return true;
@@ -62,19 +58,19 @@ function Contained(array, item)
 
 function requestConv(crypto, fiatc)
 {
-    var req = new XMLHttpRequest();
+    let req = new XMLHttpRequest();
     req.open("GET", `https://api.coinmarketcap.com/v1/ticker/${crypto}/?convert=${fiatc}`, false);
     req.setRequestHeader("Content-type", "application/json");
     req.send();
-    var res = JSON.parse(req.responseText);
+    let res = JSON.parse(req.responseText);
     return res[0][`price_${fiatc.toLowerCase()}`];
 }
 
 function calcConversion()
 {
-    var from = first_dropdown.value;
-    var to = second_dropdown.value;
-    var fc, sc;
+    let from = first_dropdown.value;
+    let to = second_dropdown.value;
+    let fc, sc;
     if(Contained(fiat, from) && Contained(fiat, to))
     {
         fc = requestConv("bitcoin", from);
@@ -89,32 +85,23 @@ function calcConversion()
     {
         return requestConv(from, to);
     }
-    for (var i=0; i < response.length; i++)
+    for (let i=0; i < json.length; i++)
     {
-        var element = response[i];
+        let element = json[i];
         if (element.id === from)
             fc = element.price_usd;
             
         if (element.id === to)
             sc = element.price_usd;
     }
-    return sc/fc;
-}
-
-function searchJson(json, property, value)
-{
-    for (var i=0; i < json.length; i++) {
-        if (json[i][property] === value) {
-            return json[i];
-        }
-    }
-    return null;
+    return fc/sc;
 }
 
 const NDEC = 10;
-const fiat = ["EUR", "USD", "GBP", "KRW"];
 var conversion = 1.0;
-
+let background = browser.extension.getBackgroundPage();
+const fiat = ["EUR", "USD", "GBP", "KRW"];
+var json = background.json;
 
 //CHANGE EVENTS
 document.addEventListener('DOMContentLoaded',function() {
@@ -129,12 +116,6 @@ document.addEventListener('DOMContentLoaded',function() {
 document.addEventListener('DOMContentLoaded',function() {
     document.querySelector('.form-control.second').onchange=updateControls;
 },false);
-
-var xhr = new XMLHttpRequest();
-xhr.open("GET", "https://api.coinmarketcap.com/v1/ticker/?limit=250", false);
-xhr.setRequestHeader("Content-type", "application/json");
-xhr.send();
-var response = JSON.parse(xhr.responseText);
 
 var first_dropdown = document.getElementById("first_dropdown");
 var second_dropdown = document.getElementById("second_dropdown");
@@ -157,7 +138,7 @@ fiat.forEach(element =>
     });
 
 //Populate Top250
-response.forEach(element => {
+json.forEach(element => {
     addOption(first_top, element.id, element.symbol);
     addOption(second_top, element.id, element.symbol);
 });
