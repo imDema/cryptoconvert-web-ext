@@ -46,11 +46,11 @@ function updateFirstField()
     first_input.value = (second_input.value * (1.0/conv)).toFixed(NDEC);
 }
 
-function Contained(array, item)
+function Contained(fiatObj, item)
 {
-    for(let i = 0; i<array.length; i++)
+    for(let i = 0; i<fiatObj.length; i++)
     {
-        if(item == array[i])
+        if(item == fiatObj[i].id)
             return true;
     }
     return false;
@@ -66,6 +66,17 @@ function requestConv(crypto, fiatc)
     return res[0][`price_${fiatc.toLowerCase()}`];
 }
 
+function getUsdPrice(_crypto)
+{
+    for (let i=0; i < json.length; i++)
+    {
+        let element = json[i];
+        if (element.id === _crypto)
+            return element.price_usd;
+    }
+    return -1;
+}
+
 function calcConversion()
 {
     let from = first_dropdown.value;
@@ -73,35 +84,37 @@ function calcConversion()
     let fc, sc;
     if(Contained(fiat, from) && Contained(fiat, to))
     {
-        fc = requestConv("bitcoin", from);
-        sc = requestConv("bitcoin", to);
+        fc = background.getFiatBtcPrice(from);
+        sc = background.getFiatBtcPrice(to);
         return sc / fc;
     }
     else if(Contained(fiat, from))
     {
-        return (1.0/requestConv(to, from));
+        fc = background.getFiatBtcPrice(from);
+        sc = getUsdPrice(to);
+        return 1.0/(fc * sc / usdbtc);
     }
     else if(Contained(fiat, to))
     {
-        return requestConv(from, to);
+        fc = getUsdPrice(from);
+        sc = background.getFiatBtcPrice(to);
+        return (fc * sc / usdbtc);
     }
-    for (let i=0; i < json.length; i++)
+    else
     {
-        let element = json[i];
-        if (element.id === from)
-            fc = element.price_usd;
-            
-        if (element.id === to)
-            sc = element.price_usd;
+        fc = getUsdPrice(from);
+        sc = getUsdPrice(to);
+        return fc/sc;
     }
-    return fc/sc;
 }
 
 const NDEC = 10;
 var conversion = 1.0;
 let background = browser.extension.getBackgroundPage();
-const fiat = ["EUR", "USD", "GBP", "KRW"];
+var fiat = background.fiat;
 var json = background.json;
+
+var usdbtc = getUsdPrice("bitcoin");
 
 //CHANGE EVENTS
 document.addEventListener('DOMContentLoaded',function() {
@@ -133,8 +146,8 @@ var second_input = document.getElementById("second_input");
 //Populate Fiat
 fiat.forEach(element => 
     {
-        addOption(first_fiat, element, element);
-        addOption(second_fiat, element, element);
+        addOption(first_fiat, element.id, element.id);
+        addOption(second_fiat, element.id, element.id);
     });
 
 //Populate Top250
