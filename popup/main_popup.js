@@ -34,6 +34,14 @@ function updateControls(event)
     }
 }
 
+function a_refreshClick(event)
+{ 
+    background.getPrices();
+    a_refresh.classList.remove("animate");
+    void a_refresh.offsetWidth;
+    a_refresh.classList.add("animate");
+}
+
 function updateSecondField()
 {
     let conv = calcConversion();
@@ -54,16 +62,6 @@ function Contained(fiatObj, item)
             return true;
     }
     return false;
-}
-
-function requestConv(crypto, fiatc)
-{
-    let req = new XMLHttpRequest();
-    req.open("GET", `https://api.coinmarketcap.com/v1/ticker/${crypto}/?convert=${fiatc}`, false);
-    req.setRequestHeader("Content-type", "application/json");
-    req.send();
-    let res = JSON.parse(req.responseText);
-    return res[0][`price_${fiatc.toLowerCase()}`];
 }
 
 function getUsdPrice(_crypto)
@@ -108,11 +106,12 @@ function calcConversion()
     }
 }
 
-const NDEC = 10;
+const NDEC = 8;
 var conversion = 1.0;
 let background = browser.extension.getBackgroundPage();
 var fiat = background.fiat;
 var json = background.json;
+var recent = background.recent;
 
 var usdbtc = getUsdPrice("bitcoin");
 
@@ -129,6 +128,9 @@ document.addEventListener('DOMContentLoaded',function() {
 document.addEventListener('DOMContentLoaded',function() {
     document.querySelector('.form-control.second').onchange=updateControls;
 },false);
+document.addEventListener('DOMContentLoaded',function() {
+    document.querySelector('#a_refresh').onclick=a_refreshClick;
+},false);
 
 var first_dropdown = document.getElementById("first_dropdown");
 var second_dropdown = document.getElementById("second_dropdown");
@@ -142,6 +144,8 @@ var second_fiat = document.getElementById("second_fiat");
 
 var first_input = document.getElementById("first_input");
 var second_input = document.getElementById("second_input");
+
+var a_refresh = document.getElementById("a_refresh");
 
 //Populate Fiat
 fiat.forEach(element => 

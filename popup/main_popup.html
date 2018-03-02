@@ -10,22 +10,25 @@
 
 <body>
   <div id="popup-content">
-    <div id="title "class="title">CryptoConvert</div>
+    <div class="title-bar">
+      <div id="title" class="title">CryptoConvert</div>
+      <a href="#" id="a_refresh" class="a_refresh">Refresh</a>
+    </div>
     <div id="control-container" class="control-container">
         <div id="currency first-c" class="currency">
             <input class="form-control first" id="first_input" name="amount-first" min="0" step="0.01" placeholder="0.5000" type="number">
-              <select class="dropdown first" id="first_dropdown">
-                <optgroup id="first_recent" label="Recent"></optgroup>
-                <optgroup id="first_fiat" label="Fiat"></optgroup>
-                <optgroup id="first_top" label="Top 250"></optgroup>
-              </select>
+            <select class="dropdown first" id="first_dropdown">
+              <optgroup id="first_recent" label="Recent"></optgroup>
+              <optgroup id="first_fiat" label="Fiat"></optgroup>
+              <optgroup id="first_top" label="Top 250"></optgroup>
+            </select>
         </div>
         <div id="currency second-c" class="currency">
           <input class="form-control second" id="second_input" name="amount-first" min="0" step="0.01" placeholder="100.0000" type="number">
           <select class="dropdown second" id="second_dropdown">
-              <optgroup id="second_recent" label="Recent"></optgroup>
-              <optgroup id="second_fiat" label="Fiat"></optgroup>
-              <optgroup id="second_top" label="Top 250"></optgroup>
+            <optgroup id="second_recent" label="Recent"></optgroup>
+            <optgroup id="second_fiat" label="Fiat"></optgroup>
+            <optgroup id="second_top" label="Top 250"></optgroup>
           </select>
         </div>
     </div>

@@ -18,13 +18,19 @@ function getFiatBtcPrice(_fiat)
     }
 }
 
-const fiatList = ["EUR", "USD", "GBP", "KRW"];
+function getPrices()
+{
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://api.coinmarketcap.com/v1/ticker/?limit=250", false);
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.send();
+    json = JSON.parse(xhr.responseText);
+}
 
-var xhr = new XMLHttpRequest();
-xhr.open("GET", "https://api.coinmarketcap.com/v1/ticker/?limit=250", false);
-xhr.setRequestHeader("Content-type", "application/json");
-xhr.send();
-var json = JSON.parse(xhr.responseText);
+const fiatList = ["EUR", "USD", "GBP","AUD", "KRW", "JPY"];
+
+var json;
+getPrices();
 
 var fiat = [];
 
@@ -33,3 +39,5 @@ for (let i = 0; i < fiatList.length; i++)
     let item = {id:fiatList[i], price:0};
     fiat.push(item);
 }
+
+var recent = [];

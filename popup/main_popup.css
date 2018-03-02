@@ -11,8 +11,40 @@ html, body
   align-content: center;
 }
 
+.title-bar
+{
+  display: block;
+}
+
+@keyframes refresh_animation
+{
+   0%{color: rgba(255, 255, 255, 0.6);
+      text-shadow: none}
+   15%{color: rgba(255, 243, 77, 0.9);
+      text-shadow: black}
+   25%{color: rgba(255, 243, 77, 0.9);}
+   100%{color: rgba(255, 255, 255, 0.6);
+  text-shadow: none}
+}
+
+.title-bar a
+{
+  font-size: 0.8em;
+  float: right;
+  margin-top: 0.2em;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.6);
+}
+.title-bar a.animate
+{
+  animation-name: refresh_animation;
+  animation-duration: 6s;
+  animation-timing-function: ease-in-out;
+}
+
 .title
 {
+  display: inline-block;
   color:white;
   margin-bottom: 0.2em;
 }
@@ -67,7 +99,7 @@ option
 input.form-control {
   text-align: right;
   height: 2em;
-  width: 9em;
+  width: 12em;
   border: none;
 }
 
