@@ -34,13 +34,43 @@ function updateControls(event)
     }
 }
 
-function a_refreshClick(event)
-{ 
-    background.getPrices();
-    a_refresh.classList.remove("animate");
-    void a_refresh.offsetWidth;
-    a_refresh.classList.add("animate");
-    updateSecondField();
+// async function getPricesFromBackground()
+// {
+//     return new Promise(() => 
+//     {
+//         timediff = Date.now() - background.lastCall;
+//         if(timediff > 10000) //10 seconds
+//         {
+            
+//         }
+//         background.getPrices();
+//     })
+// }
+
+function sleep(ms)
+{
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function a_refreshClick(event)
+{
+    timediff = Date.now() - background.lastCall;
+    if(timediff > 8011)
+    {
+        void a_refresh.offsetWidth;
+        a_refresh.classList.add("animate");
+        background.getPrices();
+        updateSecondField();
+        await sleep(8010);
+        a_refresh.classList.remove("animate-dont");
+        a_refresh.classList.remove("animate");
+    }
+    else
+    {
+        a_refresh.classList.remove("animate-dont");
+        void a_refresh.offsetWidth;
+        a_refresh.classList.add("animate-dont");
+    }
 }
 
 function updateSecondField()

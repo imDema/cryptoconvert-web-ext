@@ -25,10 +25,12 @@ function getPrices()
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.send();
     json = JSON.parse(xhr.responseText);
+    lastCall = Date.now();
 }
 
 const fiatList = ["EUR", "USD", "GBP","AUD", "KRW", "JPY"];
 
+var lastCall = new Date();
 var json;
 getPrices();
 

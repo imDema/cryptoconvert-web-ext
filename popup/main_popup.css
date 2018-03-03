@@ -19,10 +19,17 @@ html, body
 @keyframes refresh_animation
 {
   0%{color: rgba(255, 255, 255, 0.6);}
-  3%{color: rgba(255, 255, 255, 0.97);}
-  12%{color: rgba(255, 255, 255, 0.97);}
-  33%{color: rgba(255, 255, 255, 0.3);} 
-  100%{color: rgba(255, 255, 255, 0.6);}
+  2%{color: rgba(255, 255, 255, 0.97);}
+  6%{color: rgba(255, 255, 255, 0.97);}
+  16%{color: rgba(255, 255, 255, 0.3);} 
+  50%{color: rgba(255, 255, 255, 0.25);}
+  100%{color: rgba(255, 255, 255, 0.30);}
+}
+@keyframes dont_animation
+{
+  0%{color: rgba(255, 255, 255, 0.25);}
+  40%{color: rgba(255, 0, 0, 0.801);}
+  100%{color: rgba(255, 255, 255, 0.0.25);} 
 }
 
 .title-bar a
@@ -33,10 +40,17 @@ html, body
   text-decoration: none;
   color: rgba(255, 255, 255, 0.6);
 }
-.title-bar a.animate
+a.animate
 {
   animation-name: refresh_animation;
-  animation-duration: 10s;
+  animation-duration: 8s;
+  animation-timing-function: cubic-bezier(.36,.01,.64,.99);
+  color: rgba(255, 255, 255, 0.30);
+}
+a.animate-dont
+{
+  animation-name: dont_animation;
+  animation-duration: 1s;
   animation-timing-function: cubic-bezier(.36,.01,.64,.99);
 }
 
