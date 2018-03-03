@@ -18,13 +18,11 @@ html, body
 
 @keyframes refresh_animation
 {
-   0%{color: rgba(255, 255, 255, 0.6);
-      text-shadow: none}
-   15%{color: rgba(255, 243, 77, 0.9);
-      text-shadow: black}
-   25%{color: rgba(255, 243, 77, 0.9);}
-   100%{color: rgba(255, 255, 255, 0.6);
-  text-shadow: none}
+  0%{color: rgba(255, 255, 255, 0.6);}
+  3%{color: rgba(255, 255, 255, 0.97);}
+  12%{color: rgba(255, 255, 255, 0.97);}
+  33%{color: rgba(255, 255, 255, 0.3);} 
+  100%{color: rgba(255, 255, 255, 0.6);}
 }
 
 .title-bar a
@@ -38,8 +36,8 @@ html, body
 .title-bar a.animate
 {
   animation-name: refresh_animation;
-  animation-duration: 6s;
-  animation-timing-function: ease-in-out;
+  animation-duration: 10s;
+  animation-timing-function: cubic-bezier(.36,.01,.64,.99);
 }
 
 .title

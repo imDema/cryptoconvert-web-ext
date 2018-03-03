@@ -40,6 +40,7 @@ function a_refreshClick(event)
     a_refresh.classList.remove("animate");
     void a_refresh.offsetWidth;
     a_refresh.classList.add("animate");
+    updateSecondField();
 }
 
 function updateSecondField()
