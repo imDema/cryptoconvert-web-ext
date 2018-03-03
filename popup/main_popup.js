@@ -34,19 +34,6 @@ function updateControls(event)
     }
 }
 
-// async function getPricesFromBackground()
-// {
-//     return new Promise(() => 
-//     {
-//         timediff = Date.now() - background.lastCall;
-//         if(timediff > 10000) //10 seconds
-//         {
-            
-//         }
-//         background.getPrices();
-//     })
-// }
-
 function sleep(ms)
 {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -97,9 +84,9 @@ function Contained(fiatObj, item)
 
 function getUsdPrice(_crypto)
 {
-    for (let i=0; i < json.length; i++)
+    for (let i=0; i < background.json.length; i++)
     {
-        let element = json[i];
+        let element = background.json[i];
         if (element.id === _crypto)
             return element.price_usd;
     }
@@ -111,19 +98,19 @@ function calcConversion()
     let from = first_dropdown.value;
     let to = second_dropdown.value;
     let fc, sc;
-    if(Contained(fiat, from) && Contained(fiat, to))
+    if(Contained(background.fiat, from) && Contained(background.fiat, to))
     {
         fc = background.getFiatBtcPrice(from);
         sc = background.getFiatBtcPrice(to);
         return sc / fc;
     }
-    else if(Contained(fiat, from))
+    else if(Contained(background.fiat, from))
     {
         fc = background.getFiatBtcPrice(from);
         sc = getUsdPrice(to);
         return 1.0/(fc * sc / usdbtc);
     }
-    else if(Contained(fiat, to))
+    else if(Contained(background.fiat, to))
     {
         fc = getUsdPrice(from);
         sc = background.getFiatBtcPrice(to);
@@ -140,9 +127,6 @@ function calcConversion()
 const NDEC = 8;
 var conversion = 1.0;
 let background = browser.extension.getBackgroundPage();
-var fiat = background.fiat;
-var json = background.json;
-var recent = background.recent;
 
 var usdbtc = getUsdPrice("bitcoin");
 
@@ -179,14 +163,14 @@ var second_input = document.getElementById("second_input");
 var a_refresh = document.getElementById("a_refresh");
 
 //Populate Fiat
-fiat.forEach(element => 
+background.fiat.forEach(element => 
     {
         addOption(first_fiat, element.id, element.id);
         addOption(second_fiat, element.id, element.id);
     });
 
 //Populate Top250
-json.forEach(element => {
+background.json.forEach(element => {
     addOption(first_top, element.id, element.symbol);
     addOption(second_top, element.id, element.symbol);
 });
