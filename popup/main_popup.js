@@ -177,3 +177,5 @@ background.json.forEach(element => {
 
 first_dropdown.value = first_top.firstChild.value;
 second_dropdown.value = second_fiat.firstChild.value;
+
+background.getPrices()

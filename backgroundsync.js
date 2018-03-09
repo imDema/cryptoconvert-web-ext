@@ -20,17 +20,20 @@ function getFiatBtcPrice(_fiat)
 
 function getPrices()
 {
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://api.coinmarketcap.com/v1/ticker/?limit=250", false);
-    xhr.setRequestHeader("Content-type", "application/json");
-    xhr.send();
-    json = JSON.parse(xhr.responseText);
-    lastCall = Date.now();
+    if(Date.now() - lastCall > 6000)
+    {
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://api.coinmarketcap.com/v1/ticker/?limit=250", false);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.send();
+        json = JSON.parse(xhr.responseText);
+        lastCall = Date.now();
+    }
 }
 
 const fiatList = ["EUR", "USD", "GBP","AUD", "KRW", "JPY"];
 
-var lastCall = new Date();
+var lastCall = new Date(0);
 var json;
 getPrices();
 
