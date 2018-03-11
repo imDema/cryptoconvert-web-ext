@@ -21,7 +21,8 @@
     "permissions" : 
     [
       "https://api.coinmarketcap.com/",
-      "https://fonts.googleapis.com/"
+      "https://fonts.googleapis.com/",
+      "storage"
     ],
     
     "background" :

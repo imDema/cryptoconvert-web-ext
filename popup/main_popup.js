@@ -6,6 +6,20 @@ function addOption(select, id, symbol)
     select.appendChild(opt);
 }
 
+function updateRecent()
+{
+    for(var i = first_recent.length-1; i>=0; i--)
+    {
+        first_recent.removeChild(first_recent[i]);
+        second_recent.removeChild(second_recent[i]);
+    }
+    background.recent.forEach(element =>
+    {
+        addOption(first_recent, element.id, element.id);
+        addOption(second_recent, element.id, element.id);
+    });
+}
+
 function updateControls(event)
 {
     switch (event.target.classList.value) {
@@ -22,11 +36,15 @@ function updateControls(event)
         case "dropdown first":
             //Changed first currency
             updateSecondField();
+            background.pushRecent(first_dropdown.value , first_dropdown.selectedOptions[0].text);
+            updateRecent();
         break;
 
         case "dropdown second":
             //Changed second currency
             updateSecondField();
+            background.pushRecent(second_dropdown.value , second_dropdown.selectedOptions[0].text);
+            updateRecent();
         break;
 
         default:
@@ -162,12 +180,15 @@ var second_input = document.getElementById("second_input");
 
 var a_refresh = document.getElementById("a_refresh");
 
+//Populate Recent
+updateRecent();
+
 //Populate Fiat
 background.fiat.forEach(element => 
-    {
-        addOption(first_fiat, element.id, element.id);
-        addOption(second_fiat, element.id, element.id);
-    });
+{
+    addOption(first_fiat, element.id, element.id);
+    addOption(second_fiat, element.id, element.id);
+});
 
 //Populate Top250
 background.json.forEach(element => {
