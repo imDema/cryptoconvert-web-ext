@@ -8,16 +8,20 @@ function addOption(select, id, symbol)
 
 function updateRecent()
 {
-    for(var i = first_recent.length-1; i>=0; i--)
+    while(first_recent.firstChild)
     {
-        first_recent.removeChild(first_recent[i]);
-        second_recent.removeChild(second_recent[i]);
+        first_recent.removeChild(first_recent.firstChild);
     }
-    background.recent.forEach(element =>
+    while(second_recent.firstChild)
     {
-        addOption(first_recent, element.id, element.id);
-        addOption(second_recent, element.id, element.id);
-    });
+        second_recent.removeChild(second_recent.firstChild);
+    }
+    for(var i=background.recent.length-1; i>=0;i--)
+    {
+        var element = background.recent[i];
+        addOption(first_recent, element.id, element.value);
+        addOption(second_recent, element.id, element.value);
+    }
 }
 
 function updateControls(event)

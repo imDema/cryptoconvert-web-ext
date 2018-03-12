@@ -33,11 +33,11 @@ function getPrices()
 
 function setRecent(list)
 {
-    browser.storage.local.set(recent);
+    //browser.storage.local.set(recent);
 }
 function getRecent(list)
 {
-    browser.storage.local.get(recent);
+    //browser.storage.local.get(recent);
 }
 
 function bubbleUp(pos, list)
@@ -66,7 +66,7 @@ function pushRecent(_id, _value)
     {
         var item = {id:_id, value:_value};
         recent.push(item);
-        if(recent.length >= MAXLREC)
+        if(recent.length > MAXLREC)
             recent.shift();
     }
     //Save changes
