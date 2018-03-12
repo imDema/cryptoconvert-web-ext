@@ -31,6 +31,49 @@ function getPrices()
     }
 }
 
+function setRecent(list)
+{
+    //browser.storage.local.set(recent);
+}
+function getRecent(list)
+{
+    //browser.storage.local.get(recent);
+}
+
+function bubbleUp(pos, list)
+{
+    var temp = list[pos];
+    for (var i = pos; i<list.length-1; i++)
+    {
+        list[i] = list[i+1];
+    }
+    list[list.length-1] = temp;
+}
+
+function pushRecent(_id, _value)
+{
+    //Check if already in recent
+    for (var i=0, nf=true; i<recent.length && nf; i++)
+    {
+        if(recent[i].id == _id)
+        {
+            nf = false;
+            bubbleUp(i, recent);
+        }
+    }
+    //If not in list add it
+    if(nf)
+    {
+        var item = {id:_id, value:_value};
+        recent.push(item);
+        if(recent.length > MAXLREC)
+            recent.shift();
+    }
+    //Save changes
+    setRecent(recent);
+}
+
+const MAXLREC = 5;
 const fiatList = ["EUR", "USD", "GBP","AUD", "KRW", "JPY"];
 
 var lastCall = new Date(0);
@@ -46,3 +89,4 @@ for (let i = 0; i < fiatList.length; i++)
 }
 
 var recent = [];
+getRecent();
