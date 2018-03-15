@@ -20,7 +20,7 @@ function getFiatBtcPrice(_fiat)
 
 function getPrices()
 {
-    if(Date.now() - lastCall > 6000)
+    if((Date.now() - lastCall) > 6000)
     {
         let xhr = new XMLHttpRequest();
         xhr.open("GET", "https://api.coinmarketcap.com/v1/ticker/?limit=250", false);
@@ -76,8 +76,8 @@ function pushRecent(_id, _value)
 const MAXLREC = 5;
 const fiatList = ["EUR", "USD", "GBP","AUD", "KRW", "JPY"];
 
-var lastCall = new Date(0);
-var json;
+var lastCall: number = 0;
+var json : JSON;
 getPrices();
 
 var fiat = [];

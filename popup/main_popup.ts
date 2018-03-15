@@ -1,9 +1,15 @@
-function addOption(select, id, symbol)
+function addOption(select : HTMLOptGroupElement | HTMLSelectElement, id, symbol)
 {
     let opt = document.createElement('option');
     opt.value = id;
     opt.innerHTML = symbol;
     select.appendChild(opt);
+}
+
+function addRecent(dropdown : HTMLSelectElement)
+{
+    background.pushRecent(dropdown.value , dropdown.selectedOptions[0].text);
+    updateRecent();
 }
 
 function updateRecent()
@@ -24,37 +30,31 @@ function updateRecent()
     }
 }
 
-function updateControls(event)
+function first_dropdown_onchange(event: Event)
 {
-    switch (event.target.classList.value) {
-        case "form-control first":
-            //Changed first value
-            updateSecondField();
-        break;
-    
-        case "form-control second":
-            //Changed second value
-            updateFirstField();
-        break;
-
-        case "dropdown first":
-            //Changed first currency
-            updateSecondField();
-            background.pushRecent(first_dropdown.value , first_dropdown.selectedOptions[0].text);
-            updateRecent();
-        break;
-
-        case "dropdown second":
-            //Changed second currency
-            updateSecondField();
-            background.pushRecent(second_dropdown.value , second_dropdown.selectedOptions[0].text);
-            updateRecent();
-        break;
-
-        default:
-            break;
-    }
+    updateSecondField();
+    addRecent(first_dropdown);
 }
+
+function second_dropdown_onchange(event: Event)
+{
+    updateSecondField();
+    addRecent(second_dropdown);
+}
+
+
+function updateSecondField()
+{
+    let conv = calcConversion();
+    second_input.value = (+first_input.value * conv).toFixed(NDEC);
+}
+
+function updateFirstField()
+{
+    let conv = calcConversion();
+    first_input.value = (+second_input.value * (1.0/conv)).toFixed(NDEC);
+}
+
 
 function sleep(ms)
 {
@@ -80,18 +80,6 @@ async function a_refreshClick(event)
         void a_refresh.offsetWidth;
         a_refresh.classList.add("animate-dont");
     }
-}
-
-function updateSecondField()
-{
-    let conv = calcConversion();
-    second_input.value = (+first_input.value * conv).toFixed(NDEC);
-}
-
-function updateFirstField()
-{
-    let conv = calcConversion();
-    first_input.value = (+second_input.value * (1.0/conv)).toFixed(NDEC);
 }
 
 function Contained(fiatObj, item)
@@ -168,10 +156,10 @@ let second_input = <HTMLInputElement>document.getElementById("second_input");
 let a_refresh = <HTMLInputElement>document.getElementById("a_refresh");
 
 //CHANGE EVENTS
-first_dropdown.onchange = updateControls;
-first_input.onchange = updateControls;
-second_dropdown.onchange=updateControls;
-second_input.onchange=updateControls;
+first_dropdown.onchange = first_dropdown_onchange;
+first_input.onchange = updateSecondField;
+second_dropdown.onchange=second_dropdown_onchange;
+second_input.onchange=updateFirstField;
 a_refresh.onclick=a_refreshClick;
 
 
@@ -189,9 +177,9 @@ background.fiat.forEach(element =>
 background.json.forEach(element => {
     addOption(first_top, element.id, element.symbol);
     addOption(second_top, element.id, element.symbol);
-});
+}); 
 
-first_dropdown.value = first_top.firstChild.value;
-second_dropdown.value = second_fiat.firstChild.value;
+first_dropdown.value = background.json[0].id;
+second_dropdown.value = background.fiat[0].id;
 
 background.getPrices()
