@@ -160,11 +160,17 @@ let second_input = <HTMLInputElement>document.getElementById("second_input");
 let a_refresh = <HTMLInputElement>document.getElementById("a_refresh");
 
 //CHANGE EVENTS
-first_dropdown.onchange = first_dropdown_onchange;
+
 first_input.onchange = updateSecondField;
-second_dropdown.onchange=second_dropdown_onchange;
-second_input.onchange=updateFirstField;
-a_refresh.onclick=a_refreshClick;
+second_input.onchange = updateFirstField;
+
+first_input.onfocus = function() { first_input.select(); };
+second_input.onfocus = function() { second_input.select(); };
+
+first_dropdown.onchange = first_dropdown_onchange;
+second_dropdown.onchange = second_dropdown_onchange;
+
+a_refresh.onclick = a_refreshClick;
 
 
 //Populate Recent
@@ -186,4 +192,4 @@ background.json.forEach(element => {
 first_dropdown.value = background.json[0].id;
 second_dropdown.value = background.fiat[0].id;
 
-background.getPrices()
+background.getPrices();

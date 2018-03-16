@@ -29,13 +29,13 @@ function getPrices()
         lastCall = Date.now();
     }
 }
-function setRecent(list)
+function setRecent(list: ICoin[])
 {
-    //browser.storage.local.set(recent);
+    browser.storage.local.set({recentList: recent});
 }
-function getRecent(list)
+function getRecent(list: ICoin[])
 {
-    //browser.storage.local.get(recent);
+    list = browser.storage.local.get("recentList");
 }
 
 function bubbleUp(pos, list)
@@ -99,4 +99,4 @@ for (let i = 0; i < fiatList.length; i++)
 }
 
 var recent: ICoin[] = [];
-//getRecent();
+getRecent(recent);

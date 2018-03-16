@@ -117,10 +117,12 @@ let first_input = document.getElementById("first_input");
 let second_input = document.getElementById("second_input");
 let a_refresh = document.getElementById("a_refresh");
 //CHANGE EVENTS
-first_dropdown.onchange = first_dropdown_onchange;
 first_input.onchange = updateSecondField;
-second_dropdown.onchange = second_dropdown_onchange;
 second_input.onchange = updateFirstField;
+first_input.onfocus = function () { first_input.select(); };
+second_input.onfocus = function () { second_input.select(); };
+first_dropdown.onchange = first_dropdown_onchange;
+second_dropdown.onchange = second_dropdown_onchange;
 a_refresh.onclick = a_refreshClick;
 //Populate Recent
 updateRecent();

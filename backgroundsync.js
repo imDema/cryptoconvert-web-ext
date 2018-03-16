@@ -24,10 +24,10 @@ function getPrices() {
     }
 }
 function setRecent(list) {
-    //browser.storage.local.set(recent);
+    browser.storage.local.set({ recentList: recent });
 }
 function getRecent(list) {
-    //browser.storage.local.get(recent);
+    list = browser.storage.local.get("recentList");
 }
 function bubbleUp(pos, list) {
     let temp = list[pos];
@@ -66,4 +66,4 @@ for (let i = 0; i < fiatList.length; i++) {
     fiat.push(item);
 }
 var recent = [];
-//getRecent();
+getRecent(recent);
