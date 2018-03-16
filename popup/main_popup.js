@@ -1,16 +1,16 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 function addOption(select, id, symbol) {
     let opt = document.createElement('option');
     opt.value = id;
     opt.innerHTML = symbol;
     select.appendChild(opt);
+}
+function addRecent(dropdown) {
+    background.pushRecent(dropdown.value, dropdown.selectedOptions[0].label);
+    let fval = first_dropdown.selectedOptions[0].value;
+    let sval = second_dropdown.selectedOptions[0].value;
+    updateRecent();
+    first_dropdown.value = fval;
+    second_dropdown.value = sval;
 }
 function updateRecent() {
     while (first_recent.firstChild) {
@@ -21,57 +21,17 @@ function updateRecent() {
     }
     for (let i = background.recent.length - 1; i >= 0; i--) {
         let element = background.recent[i];
-        addOption(first_recent, element.id, element.value);
-        addOption(second_recent, element.id, element.value);
+        addOption(first_recent, element.id, element.symbol);
+        addOption(second_recent, element.id, element.symbol);
     }
 }
-function updateControls(event) {
-    switch (event.target.classList.value) {
-        case "form-control first":
-            //Changed first value
-            updateSecondField();
-            break;
-        case "form-control second":
-            //Changed second value
-            updateFirstField();
-            break;
-        case "dropdown first":
-            //Changed first currency
-            updateSecondField();
-            background.pushRecent(first_dropdown.value, first_dropdown.selectedOptions[0].text);
-            updateRecent();
-            break;
-        case "dropdown second":
-            //Changed second currency
-            updateSecondField();
-            background.pushRecent(second_dropdown.value, second_dropdown.selectedOptions[0].text);
-            updateRecent();
-            break;
-        default:
-            break;
-    }
+function first_dropdown_onchange(event) {
+    updateSecondField();
+    addRecent(first_dropdown);
 }
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-function a_refreshClick(event) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let timediff = Date.now() - background.lastCall;
-        if (timediff > 8011) {
-            void a_refresh.offsetWidth;
-            a_refresh.classList.add("animate");
-            background.getPrices();
-            updateSecondField();
-            yield sleep(8010);
-            a_refresh.classList.remove("animate-dont");
-            a_refresh.classList.remove("animate");
-        }
-        else {
-            a_refresh.classList.remove("animate-dont");
-            void a_refresh.offsetWidth;
-            a_refresh.classList.add("animate-dont");
-        }
-    });
+function second_dropdown_onchange(event) {
+    updateSecondField();
+    addRecent(second_dropdown);
 }
 function updateSecondField() {
     let conv = calcConversion();
@@ -80,6 +40,26 @@ function updateSecondField() {
 function updateFirstField() {
     let conv = calcConversion();
     first_input.value = (+second_input.value * (1.0 / conv)).toFixed(NDEC);
+}
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+async function a_refreshClick(event) {
+    let timediff = Date.now() - background.lastCall;
+    if (timediff > 8011) {
+        void a_refresh.offsetWidth;
+        a_refresh.classList.add("animate");
+        background.getPrices();
+        updateSecondField();
+        await sleep(8010);
+        a_refresh.classList.remove("animate-dont");
+        a_refresh.classList.remove("animate");
+    }
+    else {
+        a_refresh.classList.remove("animate-dont");
+        void a_refresh.offsetWidth;
+        a_refresh.classList.add("animate-dont");
+    }
 }
 function Contained(fiatObj, item) {
     for (let i = 0; i < fiatObj.length; i++) {
@@ -137,10 +117,10 @@ let first_input = document.getElementById("first_input");
 let second_input = document.getElementById("second_input");
 let a_refresh = document.getElementById("a_refresh");
 //CHANGE EVENTS
-first_dropdown.onchange = updateControls;
-first_input.onchange = updateControls;
-second_dropdown.onchange = updateControls;
-second_input.onchange = updateControls;
+first_dropdown.onchange = first_dropdown_onchange;
+first_input.onchange = updateSecondField;
+second_dropdown.onchange = second_dropdown_onchange;
+second_input.onchange = updateFirstField;
 a_refresh.onclick = a_refreshClick;
 //Populate Recent
 updateRecent();

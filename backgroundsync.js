@@ -1,11 +1,7 @@
-function getFiatBtcPrice(_fiat)
-{
-    for(let i=0; i<fiat.length; i++)
-    {
-        if(_fiat == fiat[i].id)
-        {
-            if(fiat[i].price == 0)
-            {
+function getFiatBtcPrice(_fiat) {
+    for (let i = 0; i < fiat.length; i++) {
+        if (_fiat == fiat[i].id) {
+            if (fiat[i].price == 0) {
                 let req = new XMLHttpRequest();
                 req.open("GET", `https://api.coinmarketcap.com/v1/ticker/bitcoin/?convert=${fiat[i].id}`, false);
                 req.setRequestHeader("Content-type", "application/json");
@@ -17,10 +13,8 @@ function getFiatBtcPrice(_fiat)
         }
     }
 }
-function getPrices()
-{
-    if((Date.now() - lastCall) > 6000)
-    {
+function getPrices() {
+    if ((Date.now() - lastCall) > 6000) {
         let xhr = new XMLHttpRequest();
         xhr.open("GET", "https://api.coinmarketcap.com/v1/ticker/?limit=250", false);
         xhr.setRequestHeader("Content-type", "application/json");
@@ -29,74 +23,47 @@ function getPrices()
         lastCall = Date.now();
     }
 }
-function setRecent(list)
-{
+function setRecent(list) {
     //browser.storage.local.set(recent);
 }
-function getRecent(list)
-{
+function getRecent(list) {
     //browser.storage.local.get(recent);
 }
-
-function bubbleUp(pos, list)
-{
+function bubbleUp(pos, list) {
     let temp = list[pos];
-    for (let i = pos; i<list.length-1; i++)
-    {
-        list[i] = list[i+1];
+    for (let i = pos; i < list.length - 1; i++) {
+        list[i] = list[i + 1];
     }
-    list[list.length-1] = temp;
+    list[list.length - 1] = temp;
 }
-
-function pushRecent(_id, _symbol)
-{
+function pushRecent(_id, _symbol) {
     //Check if already in recent
-    let nf : boolean = true;
-    for (let i=0; i<recent.length && nf; i++)
-    {
-        if(recent[i].id == _id)
-        {
+    let nf = true;
+    for (let i = 0; i < recent.length && nf; i++) {
+        if (recent[i].id == _id) {
             nf = false;
             bubbleUp(i, recent);
         }
     }
     //If not in list add it
-    if(nf)
-    {
-        let item : ICoin = {id:_id, symbol:_symbol};
+    if (nf) {
+        let item = { id: _id, symbol: _symbol };
         recent.push(item);
-        if(recent.length > MAXLREC)
+        if (recent.length > MAXLREC)
             recent.shift();
     }
     //Save changes
     setRecent(recent);
 }
-
-interface ICoin
-{
-    id : string,
-    symbol : string
-}
-
-interface IFiat extends ICoin
-{
-    price : number
-}
-
 const MAXLREC = 5;
-const fiatList : string[]= ["EUR", "USD", "GBP","AUD", "KRW", "JPY"];
-
-var lastCall: number = 0;
-var json : JSON;
+const fiatList = ["EUR", "USD", "GBP", "AUD", "KRW", "JPY"];
+var lastCall = 0;
+var json;
 getPrices();
-
-var fiat : IFiat[] = [];
-
-for (let i = 0; i < fiatList.length; i++)
-{
-    let item : IFiat = {id:fiatList[i], symbol:fiatList[i], price:0};
+var fiat = [];
+for (let i = 0; i < fiatList.length; i++) {
+    let item = { id: fiatList[i], symbol: fiatList[i], price: 0 };
     fiat.push(item);
 }
-
-var recent: ICoin[] = [];
+var recent = [];
 //getRecent();

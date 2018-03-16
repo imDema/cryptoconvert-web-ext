@@ -8,8 +8,12 @@ function addOption(select : HTMLOptGroupElement | HTMLSelectElement, id, symbol)
 
 function addRecent(dropdown : HTMLSelectElement)
 {
-    background.pushRecent(dropdown.value , dropdown.selectedOptions[0].text);
+    background.pushRecent(dropdown.value , dropdown.selectedOptions[0].label);
+    let fval = first_dropdown.selectedOptions[0].value;
+    let sval = second_dropdown.selectedOptions[0].value;
     updateRecent();
+    first_dropdown.value = fval;
+    second_dropdown.value = sval;
 }
 
 function updateRecent()
@@ -24,9 +28,9 @@ function updateRecent()
     }
     for(let i=background.recent.length-1; i>=0;i--)
     {
-        let element = background.recent[i];
-        addOption(first_recent, element.id, element.value);
-        addOption(second_recent, element.id, element.value);
+        let element : ICoin = background.recent[i];
+        addOption(first_recent, element.id, element.symbol);
+        addOption(second_recent, element.id, element.symbol);
     }
 }
 
