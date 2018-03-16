@@ -2,7 +2,7 @@ function addOption(select : HTMLOptGroupElement | HTMLSelectElement, id, symbol)
 {
     let opt = document.createElement('option');
     opt.value = id;
-    opt.innerHTML = symbol;
+    opt.text = symbol;
     select.appendChild(opt);
 }
 

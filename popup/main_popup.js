@@ -1,7 +1,7 @@
 function addOption(select, id, symbol) {
     let opt = document.createElement('option');
     opt.value = id;
-    opt.innerHTML = symbol;
+    opt.text = symbol;
     select.appendChild(opt);
 }
 function addRecent(dropdown) {
