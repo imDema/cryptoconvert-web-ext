@@ -106,6 +106,7 @@ option
   text-decoration: none;
   background-color: #ff7f50;
   color: rgb(255, 235, 227);
+  box-shadow: -12px 12px 20px -12px rgba(0, 0, 0, 0.35);
 }
 
 input.form-control {

@@ -31,11 +31,11 @@ function getPrices()
 }
 function setRecent(list: ICoin[])
 {
-    browser.storage.local.set({recentList: recent});
+    browser.storage.sync.set({recentList: recent});
 }
 function getRecent(list: ICoin[])
 {
-    list = browser.storage.local.get("recentList");
+    list = browser.storage.sync.get("recentList");
 }
 
 function bubbleUp(pos, list)
