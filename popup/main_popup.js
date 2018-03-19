@@ -44,22 +44,30 @@ function updateFirstField() {
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-async function a_refreshClick(event) {
-    let timediff = Date.now() - background.lastCall;
-    if (timediff > 8011) {
-        void a_refresh.offsetWidth;
-        a_refresh.classList.add("animate");
+function asyncSync() {
+    return new Promise(function (resolve, reject) {
         background.getPrices();
         updateSecondField();
-        await sleep(8010);
-        a_refresh.classList.remove("animate-dont");
+        setTimeout(resolve, 8000);
+    });
+}
+async function a_refreshClick(event) {
+    let timediff = Date.now() - background.lastCall;
+    if (timediff > 8000) {
+        void a_refresh.offsetWidth;
+        a_refresh.classList.remove("animate-back");
+        a_refresh.classList.add("animate");
+        await asyncSync();
+        void a_refresh.offsetWidth;
+        a_refresh.classList.add("animate-back");
         a_refresh.classList.remove("animate");
     }
-    else {
-        a_refresh.classList.remove("animate-dont");
-        void a_refresh.offsetWidth;
-        a_refresh.classList.add("animate-dont");
-    }
+    // else
+    // {
+    //     a_refresh.classList.remove("animate-dont");
+    //     void a_refresh.offsetWidth;
+    //     a_refresh.classList.add("animate-dont");
+    // }
 }
 function Contained(fiatObj, item) {
     for (let i = 0; i < fiatObj.length; i++) {

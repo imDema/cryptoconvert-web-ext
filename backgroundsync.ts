@@ -19,7 +19,7 @@ function getFiatBtcPrice(_fiat)
 }
 function getPrices()
 {
-    if((Date.now() - lastCall) > 6000)
+    if((Date.now() - lastCall) > 6000) //Limit calls as for CoinMarketCap API
     {
         let xhr = new XMLHttpRequest();
         xhr.open("GET", "https://api.coinmarketcap.com/v1/ticker/?limit=250", false);

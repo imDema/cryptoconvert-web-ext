@@ -1,2 +1,1 @@
-echo "tsc popup/main_popup.ts backgroundsync.ts --target ESNext"
-echo "--------------------------------------------------------"
+tsc backgroundsync.ts popup/main_popup.ts --target ESNext
