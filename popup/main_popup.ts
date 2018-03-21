@@ -65,6 +65,12 @@ function sleep(ms)
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function removeAnim(element : HTMLElement)
+{
+    element.classList.remove("animate", "animate-back", "pre-animate-back");
+    void element.offsetWidth;
+}
+
 function asyncSync()
 {
     return new Promise(function(resolve, reject)
@@ -80,13 +86,11 @@ async function a_refreshClick(event)
     let timediff = Date.now() - background.lastCall;
     if(timediff > 8000)
     {
-        void a_refresh.offsetWidth;
-        a_refresh.classList.remove("animate-back");
+        removeAnim(a_refresh);
         a_refresh.classList.add("animate");
         await asyncSync();
-        void a_refresh.offsetWidth;
+        removeAnim(a_refresh);
         a_refresh.classList.add("animate-back");
-        a_refresh.classList.remove("animate");
     }
     // else
     // {
