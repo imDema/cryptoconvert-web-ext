@@ -5,18 +5,18 @@
 {
   --title-col: white;
   
-  --popup-bg-col: crimson;
+  --popup-bg-col: rgb(37, 70, 146);
 
   --a-refresh-col: rgba(255, 255, 255, 0.555);
   --a-refresh-alpha: 0.555;
   
-  --dropdown-button-bg-col: #ff7f50;
+  --dropdown-button-bg-col: rgb(14, 39, 96);
   --dropdown-button-text-col: rgb(255, 235, 227);
 
-  --optgroup-bg-col: hsl(16, 85%, 58%);
+  --optgroup-bg-col: rgb(26, 54, 118);
   --optgroup-text-col: rgb(255, 235, 227);
 
-  --option-bg-col: #ff7f50;
+  --option-bg-col: rgb(58, 88, 156);
   --option-text-col: rgb(255, 235, 227);
 }
 
@@ -37,16 +37,6 @@ html, body
 {
   display: block;
 }
-/* 
-@keyframes refresh_animation
-{
-  0%{color: rgba(255, 255, 255, 0.6);}
-  2%{color: rgba(255, 255, 255, 0.97);}
-  6%{color: rgba(255, 255, 255, 0.97);}
-  16%{color: rgba(255, 255, 255, 0.3);} 
-  50%{color: rgba(255, 255, 255, 0.25);}
-  100%{color: rgba(255, 255, 255, 0.30);}
-} */
 
  @-webkit-keyframes flip {
   0% {
@@ -123,9 +113,14 @@ a.pre-animate-back
 
 input.form-control, .dropdown
 {
+  outline: none;
   display: inline-block;
   overflow: hidden;
   margin: 2px;
+}
+input.form-control:hover
+{
+  box-shadow: -12px 12px 20px -12px rgba(0, 0, 0, 0.45);
 }
 
 select.dropdown
@@ -141,7 +136,7 @@ select.dropdown
 }
 select:hover
 {
-  box-shadow: 12px 12px 20px -12px rgba(0, 0, 0, 0.35);
+  box-shadow: 12px 12px 20px -12px rgba(0, 0, 0, 0.45);
 }
 
 optgroup

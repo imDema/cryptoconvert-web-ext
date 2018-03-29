@@ -92,12 +92,6 @@ async function a_refreshClick(event)
         removeAnim(a_refresh);
         a_refresh.classList.add("animate-back");
     }
-    // else
-    // {
-    //     a_refresh.classList.remove("animate-dont");
-    //     void a_refresh.offsetWidth;
-    //     a_refresh.classList.add("animate-dont");
-    // }
 }
 
 function Contained(fiatObj, item)
