@@ -7,7 +7,8 @@
   
   --popup-bg-col: crimson;
 
-  --a-regresh-col: rgba(255, 255, 255, 0.6);
+  --a-refresh-col: rgba(255, 255, 255, 0.555);
+  --a-refresh-alpha: 0.555;
   
   --dropdown-button-bg-col: #ff7f50;
   --dropdown-button-text-col: rgb(255, 235, 227);
@@ -61,20 +62,24 @@ html, body
   0% {
     -webkit-transform: rotateX(0) scaleY(1);
             transform: rotateX(0) scaleY(1);
+            opacity: var(--a-refresh-alpha);
   }
   100% {
     -webkit-transform: rotateX(-90deg) scaleY(0);
             transform: rotateX(-90deg) scaleY(0);
+            opacity: 0;
   }
 }
 @keyframes unflip {
   0% {
     -webkit-transform: rotateX(-90deg) scaleY(0);
             transform: rotateX(-90deg) scaleY(0);
+            opacity: 0;
   }
   100% {
     -webkit-transform: rotateX(0deg) scaleY(1);
             transform: rotateX(0deg) scaleY(1);
+            opacity: var(--a-refresh-alpha);
   }
 }
 
@@ -84,7 +89,7 @@ html, body
   float: right;
   margin-top: 0.2em;
   text-decoration: none;
-  color: var(--a-regresh-col);
+  color: var(--a-refresh-col);
   transform: scaleY(0) rotateX(180deg);
 }
 
@@ -100,8 +105,8 @@ a.animate-back
 }
 a.pre-animate-back
 {
-  -webkit-animation: unflip 0.8s 8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-	        animation: unflip 0.8s 8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+  -webkit-animation: unflip 0.8s 12s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+	        animation: unflip 0.8s 12s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
 }
 
 .title
@@ -134,6 +139,10 @@ select.dropdown
   background-color: var(--dropdown-button-bg-col);
   color: var(--dropdown-button-text-col);
 }
+select:hover
+{
+  box-shadow: 12px 12px 20px -12px rgba(0, 0, 0, 0.35);
+}
 
 optgroup
 {
@@ -156,7 +165,6 @@ option
   text-decoration: none;
   background-color: var(--option-bg-col);
   color: var(--option-text-col);
-  box-shadow: -12px 12px 20px -12px rgba(0, 0, 0, 0.35);
 }
 
 input.form-control {
