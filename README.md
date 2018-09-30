@@ -2,7 +2,7 @@
 
     Currently in development
 
-An browser extension created to make crypto conversions easy and immediate
+A browser extension created to make crypto conversions easy and immediate
 
 ### Tip
 
